@@ -1,97 +1,226 @@
-import React from 'react'
-import 'animate.css';
-import indians from '../Images/indians.jpg'
-import Div from '../components/Div'
-import fully from '../Images/fully.jpg'
-import teens from '../Images/teens.jpg'
-import kid from '../Images/kid.jpg'
-import Black from '../Images/Black.jpg'
-import Raising from '../Images/Raising.jpg'
-import news2 from '../Images/news2.jpg'
+import React, { useRef } from "react";
+import { motion, animate } from "framer-motion";
+import "animate.css";
+import Div from "../components/Div";
+
+import indians from "../Images/indians.jpg";
+import fully from "../Images/fully.jpg";
+import teens from "../Images/teens.jpg";
+import kid from "../Images/kid.jpg";
+import Black from "../Images/Black.jpg";
+import Raising from "../Images/Raising.jpg";
+import news2 from "../Images/news2.jpg";
 
 const Landing = () => {
-    let myFont = {
-        fontFamily: 'Quicksand'  
-      }
+  // 👇 Reference for scroll target
+  const wondersRef = useRef(null);
 
-    let myBg = {
-        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2)),
-        url(${fully})`,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        backgroundRepeat: 'no-repeat',
-        height: '80vh',
-        backgroundSize: 'cover',
-        // padding: '100px'
-    }
-    let newStyle = {
-        backgroundColor: "#f9eee4"
-    }
+  // 👇 Animated smooth scroll using Framer Motion
+  const handleScroll = () => {
+    const targetPosition = wondersRef.current.offsetTop;
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const duration = 1.2; // seconds
+
+    let start = null;
+    const easeInOutCubic = (t) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / (duration * 1000), 1);
+      const ease = easeInOutCubic(progress);
+      window.scrollTo(0, startPosition + distance * ease);
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+
+    window.requestAnimationFrame(step);
+  };
+
+  const myFont = {
+    fontFamily: "Quicksand",
+  };
+
+  const myBg = {
+    backgroundImage: `linear-gradient(rgba(0, 56, 56, 0.7), rgba(0, 56, 56, 0.7)), url(${fully})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "90vh",
+  };
+
+  const newStyle = {
+    backgroundColor: "#f9eee4",
+  };
 
   return (
     <>
-        <div className='border border-2 bg-cyan-800'>
-            <section style={myBg}>
-                <div className='pt-20 ps-10'>
-                    <h1 style={myFont} className='text-cyan-800 font-bold ms-6 mt-4 text-6xl lg:w-1/2 sm:w-px'>The New Way To Learn Properly Is With Us</h1>
-                    <button className='bg-cyan-800 py-2 text-white my-4 ms-6 mt-4 px-4 rounded'>Get Started</button>
-                </div>
-            </section>
-            <section className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 lg:my-16'>
-                <div className='m-3'>
-                    <img className='rounded-lg' src={indians} alt="" />
-                </div>
-                <div className='m-7'>
-                   <h1 style={myFont}  className='text-6xl text-white lg:mt-9 font-bold text-center'>Education is the passport to the future, for tomorrow belongs to those who prepare for it today.</h1>
-                </div>
-            </section>
-            <section className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2'>
-                <Div name='Wonders of Education' title='Education is a journey of enlightenment, a path paved with countless benefits that enrich our lives in remarkable ways. Beyond the confines of classrooms and lecture halls, it is a force that shapes individuals and society, fostering growth, progress, and understanding.' title2='At its core, education is empowerment. It equips individuals with the knowledge and skills needed to navigate lifes complexities. It empowers us to make informed decisions, enabling us to take charge of our destinies. Education is the key that unlocks doors to opportunities we might never have imagined.' title3='One of educations most awe-inspiring features is its capacity to foster innovation. From scientific breakthroughs to technological marvels, education fuels progress. It encourages the curious to ask Why? and the bold to ponder What if? The results are inventions, discoveries, and solutions that transform the world.' style='bg-white rounded-md text-dark text-justify'/>
-                <Div name='Wonders of Education cont.' title='Technological advancements continually enhance the educational experience. Digital tools and online resources have made education more accessible and engaging than ever before, opening up new avenues for learning.' title2='Education is not confined to institutions; it also plays a role in community building. Schools and universities often serve as hubs, fostering social connections and a sense of belonging. They create communities that support and inspire one another.' title3='Perhaps one of the most remarkable aspects of education is that it is a lifelong pursuit. It encourages us to embrace the joy of learning and continually seek new knowledge and experiences. Education reminds us that our journey of discovery never truly ends.' style='text-white border-2 rounded-md text-justify' mystyle={newStyle}/>
-            </section>
-            <section className='mx-4'>
-                <div className='grid sm:grid-cols-1 md:grid-cols-12 lg:grid-cols-1 xl:grid-cols-2 lg:my-16'>
-                    <div className='mt-4'>
-                        <h1 style={myFont} className='text-6xl text-white lg:mt-9 font-bold text-center'>
-                        The more that you read, the more things you will know, the more that you learn, the more places you’ll go.” —Dr. Seuss
-                        </h1>
-                    </div>
-                    <div className='mt-4'>
-                        <img className='rounded' src={news2} alt="" />
-                    </div>
-                </div>
-            </section>
-            <section className='my-20 mx-4'>
-             <div className='grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-12 gap-4'>
-                <div className='bg-white shadow-md my-2 shadow-xl'>
-                    <img src={teens}  alt=""/>
-                    <h2 className='text-xl font-semibold mb-2'>Lorem, ipsum dolor.</h2>
-                    <p className='text-grey-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, ut? Dolorum maxime est cupiditate repellat.</p>
-                </div>
-                <div className='bg-white shadow-md my-2 shadow-xl'>
-                    <img src={kid} alt="" />
-                    <h2 className='text-xl font-semibold mb-2'>Lorem, ipsum dolor.</h2>
-                    <p className='text-grey-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, ut? Dolorum maxime est cupiditate repellat.</p>
-                </div>
-                <div className='bg-white shadow-md my-2 shadow-xl'>
-                    <img src={Black}  alt="" />
-                    <h2 className='text-xl font-semibold mb-2'>Lorem, ipsum dolor.</h2>
-                    <p className='text-grey-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, ut? Dolorum maxime est cupiditate repellat.</p>
-                </div>
-                <div className='bg-white shadow-md my-2 shadow-xl'>
-                    <img src={Raising} alt="" />
-                    <h2 className='text-xl font-semibold mb-2'>Lorem, ipsum dolor.</h2>
-                    <p className='text-grey-600'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, ut? Dolorum maxime est cupiditate repellat.</p>
-                </div>
-             </div>
-            </section>
-            <section className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2'>
-                    <Div name='Other Wonders of Education' title='Education, as the foundation of human development, is a journey of lifelong transformation that we embark upon from our earliest days and continue throughout our lives. It is a journey filled with awe-inspiring aspects that shape us as individuals and society as a whole.' title2='Innovation and Progress: At its essence, education is the engine that propels innovation and progress. It inspires us to question the status quo, pushing boundaries and sparking creativity. The discoveries and inventions that emerge from educated minds have the power to reshape industries, improve lives, and solve global issues.' title3='Cultural Connectivity: Education serves as a bridge between cultures, enabling us to connect with people from diverse backgrounds. It exposes us to different traditions, languages, and perspectives, promoting cross-cultural understanding. This intercultural exchange enriches our worldview and fosters a sense of unity in an increasingly interconnected world.' style='bg-black text-white border-2 rounded-md text-justify'/>
-                    <Div name='Conclusion on Wonders of Education' title='Environmental stewardship is another remarkable facet of education. It inspires the next generation to protect and preserve our planet. It educates us about the consequences of our actions and empowers us to make environmentally conscious choices.' title2='Beyond its practical applications, education serves as a guardian of cultural heritage. It preserves traditions, languages, and historical knowledge, passing them down from one generation to the next. In doing so, it ensures the continuity of our rich tapestry of human history.' title3='In conclusion, education is a wondrous journey filled with countless marvels. It empowers, enlightens, and enriches our lives in ways that are both profound and enduring. It is a beacon of hope, a force for progress, and a testament to the limitless potential of the human mind.' style='text-white border-2 rounded-md text-justify'/>
+      <div className="bg-cyan-900 text-white">
+        {/* HERO SECTION */}
+        <motion.section
+          style={myBg}
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex flex-col justify-center px-8 sm:px-12 md:px-20"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <h1
+              style={myFont}
+              className="text-white font-bold text-5xl md:text-6xl lg:text-7xl leading-tight max-w-2xl"
+            >
+              The New Way To Learn Properly Is With Us
+            </h1>
+            <motion.button
+              onClick={handleScroll}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-8 bg-white text-cyan-800 font-semibold py-3 px-8 rounded-full shadow hover:bg-cyan-100 transition-all duration-300"
+            >
+              Get Started
+            </motion.button>
+          </motion.div>
+        </motion.section>
+
+        {/* MOTIVATIONAL QUOTE SECTION */}
+        <motion.section
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 py-20 px-8 lg:px-20 bg-cyan-800/90"
+        >
+          <div>
+            <img
+              className="rounded-xl shadow-lg w-full"
+              src={indians}
+              alt="Students"
+            />
+          </div>
+          <div className="flex items-center justify-center">
+            <h1
+              style={myFont}
+              className="text-3xl md:text-5xl font-semibold text-center leading-snug"
+            >
+              “Education is the passport to the future, for tomorrow belongs to
+              those who prepare for it today.”
+            </h1>
+          </div>
+        </motion.section>
+
+        {/* WONDERS SECTION */}
+        <section
+          ref={wondersRef}
+          className="grid sm:grid-cols-1 lg:grid-cols-2 gap-8 px-8 lg:px-20 py-16 bg-white text-gray-800"
+        >
+          <Div
+            name="Wonders of Education"
+            title="Education is a journey of enlightenment, a path paved with countless benefits that enrich our lives in remarkable ways..."
+            title2="At its core, education is empowerment. It equips individuals with knowledge and skills needed to navigate life..."
+            title3="Education fuels progress, encouraging curiosity and discovery that transform the world."
+            style="bg-white rounded-lg p-6 text-justify shadow-md"
+          />
+          <Div
+            name="Wonders of Education (Cont.)"
+            title="Technology enhances education, making it more accessible and engaging..."
+            title2="Education builds communities that inspire and support one another."
+            title3="It’s a lifelong pursuit that reminds us our journey of discovery never truly ends."
+            style="rounded-lg p-6 text-justify shadow-md"
+            mystyle={newStyle}
+          />
         </section>
-        </div>
+
+        {/* DR. SEUSS SECTION */}
+        <motion.section
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 py-20 px-8 lg:px-20 bg-cyan-800/80"
+        >
+          <div className="flex items-center justify-center">
+            <h1
+              style={myFont}
+              className="text-3xl md:text-5xl text-center font-semibold leading-snug"
+            >
+              “The more that you read, the more things you will know. The more
+              that you learn, the more places you’ll go.” — Dr. Seuss
+            </h1>
+          </div>
+          <div>
+            <img
+              className="rounded-xl shadow-lg w-full"
+              src={news2}
+              alt="Books and learning"
+            />
+          </div>
+        </motion.section>
+
+        {/* INFO CARDS */}
+        <motion.section
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="py-20 px-8 lg:px-20 bg-white text-gray-800"
+        >
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[teens, kid, Black, Raising].map((img, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              >
+                <img
+                  src={img}
+                  alt={`education-${i}`}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-5">
+                  <h2 className="text-xl font-semibold mb-2 text-cyan-800">
+                    Inspiring Story
+                  </h2>
+                  <p className="text-gray-600 text-sm">
+                    Education shapes lives, unlocks potential, and transforms
+                    societies through learning and opportunity.
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* FINAL EDUCATION DIVS */}
+        <motion.section
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-1 lg:grid-cols-2 gap-8 px-8 lg:px-20 py-16 bg-cyan-900 text-white"
+        >
+          <Div
+            name="Other Wonders of Education"
+            title="Education is a lifelong journey that fuels innovation and human progress."
+            title2="It connects cultures, bridges understanding, and unites humanity."
+            title3="Through knowledge, we find our shared strength and purpose."
+            style="bg-cyan-800 rounded-lg p-6 text-justify shadow-md"
+          />
+          <Div
+            name="Conclusion"
+            title="Education preserves culture, inspires stewardship, and empowers future generations."
+            title2="It ensures humanity continues to evolve with wisdom and compassion."
+            title3="Education is a beacon of hope, progress, and endless possibility."
+            style="bg-cyan-700 rounded-lg p-6 text-justify shadow-md"
+          />
+        </motion.section>
+      </div>
     </>
-  )
-}
+  );
+};
 
-
-export default Landing
+export default Landing;

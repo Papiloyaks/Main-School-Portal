@@ -14,6 +14,8 @@ import {
   Menu,
   X,
   LayoutDashboard,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 import Profile from "./Profile";
@@ -42,12 +44,25 @@ const StudentPortal = () => {
   const [newfirstname, setNewfirstname] = useState("");
   const [newlastname, setNewlastname] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "system");
   const navigate = useNavigate();
 
   // SOCKET.IO
   const socket = useRef(null);
   const endpoint = "https://main-school-portal.onrender.com";
 
+  // Theme auto detection
+  useEffect(() => {
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (theme === "system") {
+      document.documentElement.classList.toggle("dark", systemDark);
+    } else {
+      document.documentElement.classList.toggle("dark", theme === "dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // Socket + user profile
   useEffect(() => {
     socket.current = socketClient(endpoint);
 
@@ -71,27 +86,44 @@ const StudentPortal = () => {
     navigate("/student/signin");
   };
 
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      if (prev === "dark") return "light";
+      if (prev === "light") return "dark";
+      return "dark";
+    });
+  };
+
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500">
       {/* Top Navbar */}
-      <header className="flex items-center justify-between bg-cyan-800 px-4 py-3 shadow-md">
+      <header className="flex items-center justify-between bg-cyan-800 dark:bg-cyan-900 px-4 py-3 shadow-md transition-colors duration-500">
         <button
           onClick={() => setIsSidebarOpen(true)}
           className="block md:hidden text-white"
         >
           <Menu size={28} />
         </button>
+
         <h1 className="text-lg sm:text-xl font-semibold text-white">
           Welcome,{" "}
           <span className="text-teal-300">
             {newfirstname} {newlastname}
           </span>
         </h1>
+
+        <button
+          onClick={toggleTheme}
+          className="text-white bg-cyan-700 hover:bg-cyan-600 p-2 rounded-lg transition"
+          title="Toggle Theme"
+        >
+          {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </header>
 
       <div className="flex flex-1">
         {/* Sidebar Desktop */}
-        <aside className="hidden md:flex flex-col w-64 bg-cyan-900 text-white shadow-lg">
+        <aside className="hidden md:flex flex-col w-64 bg-cyan-900 dark:bg-cyan-950 text-white shadow-lg transition-colors duration-500">
           <div className="px-6 py-4 border-b border-cyan-700">
             <h2 className="text-xl font-bold">Student Portal</h2>
           </div>
@@ -100,7 +132,7 @@ const StudentPortal = () => {
               <Link
                 key={i}
                 to={item.path}
-                className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-cyan-700 transition"
+                className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-cyan-700 dark:hover:bg-cyan-800 transition"
               >
                 {item.icon}
                 <span>{item.name}</span>
@@ -126,7 +158,7 @@ const StudentPortal = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed inset-y-0 left-0 w-64 bg-cyan-900 text-white z-50 shadow-lg md:hidden flex flex-col"
+              className="fixed inset-y-0 left-0 w-64 bg-cyan-900 dark:bg-cyan-950 text-white z-50 shadow-lg md:hidden flex flex-col transition-colors duration-500"
             >
               <div className="flex items-center justify-between px-6 py-4 border-b border-cyan-700">
                 <h2 className="text-lg font-bold">Menu</h2>
@@ -140,7 +172,7 @@ const StudentPortal = () => {
                     key={i}
                     to={item.path}
                     onClick={() => setIsSidebarOpen(false)}
-                    className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-cyan-700 transition"
+                    className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-cyan-700 dark:hover:bg-cyan-800 transition"
                   >
                     {item.icon}
                     <span>{item.name}</span>
@@ -161,7 +193,7 @@ const StudentPortal = () => {
         </AnimatePresence>
 
         {/* Main Content */}
-        <main className="flex-1 p-4 overflow-y-auto">
+        <main className="flex-1 p-4 overflow-y-auto transition-colors duration-500">
           <Routes>
             <Route path="/dash" element={<Main />} />
             <Route path="/profile" element={<Profile />} />
@@ -179,4 +211,5 @@ const StudentPortal = () => {
 };
 
 export default StudentPortal;
+
 
