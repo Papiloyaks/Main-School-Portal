@@ -121,7 +121,7 @@ const Help = () => {
           className="bg-white shadow-lg rounded-xl p-6 w-full max-w-lg mt-8"
         >
           <h5 className="text-lg font-bold text-cyan-700 mb-4">
-            ✅ Request Submitted
+            Request Submitted
           </h5>
           <div className="space-y-2">
             <p>

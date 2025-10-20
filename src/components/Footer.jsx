@@ -8,7 +8,7 @@ const Footer = () => {
   const hiddenRoutes = ["/congrat", "/about"];
   const isHidden = hiddenRoutes.includes(location.pathname);
 
-  // ✅ Sync with system dark mode
+  //  Sync with system dark mode
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     setTheme(mediaQuery.matches ? "dark" : "light");
@@ -69,7 +69,7 @@ const Footer = () => {
       </div>
 
       <div className="text-center text-sm mt-8 border-t border-cyan-600 pt-4 opacity-70">
-        Designed & Developed by <span className="font-semibold text-cyan-200">Papiloyaks</span> 🚀
+        Designed & Developed by <span className="font-semibold text-cyan-200">Papiloyaks</span> 
       </div>
     </footer>
   );

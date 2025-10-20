@@ -96,7 +96,7 @@ const Main = () => {
       >
         <div>
           <h1 className="text-2xl font-bold">
-            Welcome, {first} {last} 👋
+            Welcome, {first} {last} 
           </h1>
           <p className="text-sm opacity-90">Here’s your academic overview</p>
         </div>
@@ -194,7 +194,7 @@ const Main = () => {
             <p className="text-sm text-gray-700 dark:text-gray-300">
               Don’t forget to check your course registration status and submit
               your assignments before deadlines. Stay consistent, and keep
-              pushing towards excellence 💪.
+              pushing towards excellence.
             </p>
           </div>
         </motion.div>
