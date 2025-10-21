@@ -48,7 +48,7 @@ export default function Chat() {
     <div className="flex flex-col h-screen bg-gray-100">
       {/* Header */}
       <div className="bg-teal-700 text-white p-3 flex justify-between items-center">
-        <h2 className="font-bold">School Portal Chat 💬</h2>
+        <h2 className="font-bold">School Portal Chat </h2>
         <p className="text-sm">Online: {onlineUsers.length}</p>
       </div>
 

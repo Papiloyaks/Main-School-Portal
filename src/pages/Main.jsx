@@ -28,7 +28,7 @@ const Main = () => {
   let token = localStorage.token;
   let navigate = useNavigate();
 
-  // 🌙 Detect and apply theme
+  //  Detect and apply theme
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -41,7 +41,7 @@ const Main = () => {
     }
   }, []);
 
-  // 🌞 Toggle Theme
+  // Toggle Theme
   const toggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);

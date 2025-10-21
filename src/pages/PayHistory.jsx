@@ -49,7 +49,7 @@ const PayHistory = () => {
         {/* Table */}
         {transactions.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400 py-10">
-            No payment records found 💳
+            No payment records found 
           </p>
         ) : (
           <div className="overflow-x-auto">
