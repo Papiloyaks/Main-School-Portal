@@ -46,7 +46,7 @@ const Course = () => {
         className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-lg"
       >
         <h1 className="text-2xl font-bold text-cyan-800 text-center mb-6">
-          📚 Course Registration
+          Course Registration
         </h1>
 
         {/* Course Selection */}

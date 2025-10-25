@@ -30,7 +30,7 @@ const Pay = () => {
     const paystack = new PaystackPop();
 
     paystack.newTransaction({
-      key: "pk_test_f625ae093e8d765eca5eb1d74e74de3476c5bc66",
+      key: "pk_test_db6ba7663112c3b323f7996c95bbedf9a9f6c1c8",
       amount: amount * 100,
       email,
       name,

@@ -111,7 +111,6 @@ const StudentPortal = () => {
             {newfirstname} {newlastname}
           </span>
         </h1>
-
         <button
           onClick={toggleTheme}
           className="text-white bg-cyan-700 hover:bg-cyan-600 p-2 rounded-lg transition"

@@ -12,10 +12,10 @@ import Raising from "../Images/Raising.jpg";
 import news2 from "../Images/news2.jpg";
 
 const Landing = () => {
-  // 👇 Reference for scroll target
+  // Reference for scroll target
   const wondersRef = useRef(null);
 
-  // 👇 Animated smooth scroll using Framer Motion
+  //  Animated smooth scroll using Framer Motion
   const handleScroll = () => {
     const targetPosition = wondersRef.current.offsetTop;
     const startPosition = window.scrollY;
